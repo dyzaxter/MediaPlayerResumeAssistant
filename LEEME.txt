@@ -1,0 +1,32 @@
+ASISTENTE DE REANUDACIÓN PARA MEDIA PLAYER DE WINDOWS — INTERFAZ GROOVE
+
+NOVEDADES DE ESTA VERSIÓN
+- Interfaz renovada inspirada en Groove Música: tonos oscuros, acentos morados y magenta, panel lateral y tarjetas redondeadas.
+- El icono de reproducción se mantiene en la identidad visual y app.ico sigue integrado en el ejecutable y en la ventana.
+- La ventana no se convierte en un reproductor: el vídeo sigue abriéndose en la aplicación predeterminada de Windows.
+- Las tarjetas muestran vídeo seleccionado, posición guardada y estado del asistente.
+- El historial conserva los vídeos aunque la unidad USB no esté conectada. Si intentas abrir uno que falta, puedes quitar su entrada del historial; si pulsas ×, se elimina el archivo real solo cuando existe y se confirma la acción. Si falta, la entrada se conserva y se muestra un aviso.
+- La interfaz permite cambiar de tamaño con Ctrl + rueda del ratón o mediante el deslizador.
+- Optimización de batería: durante el seguimiento activo, se consulta la posición cada 5 segundos (restaurado el timing original); en reposo y cuando no se encuentra una sesión, los sondeos se espacian a 30 segundos. La precisión de la última posición guardada es de unos 5 segundos.
+- Los metadatos del medio se consultan al cambiar de sesión y, mientras permanece activa, como máximo cada 60 segundos, en lugar de en cada sondeo.
+- La búsqueda de sesión continúa después de los primeros 35 segundos: si Media Player tarda en aparecer, se vuelve a comprobar cada 30 segundos sin abandonar la detección.
+- El asistente solo intenta controlar sesiones identificadas como Windows Media Player / Media Player; no usa una sesión multimedia arbitraria como último recurso. Esto evita enviar por error una orden de búsqueda a otra aplicación.
+- El historial no se reconstruye visualmente en cada actualización de posición. La lista se refresca al abrir un vídeo, al pedir actualizar la biblioteca o cuando se modifica el historial.
+- El progreso se guarda en disco como máximo cada 4 segundos mientras cambia (timing original restaurado), por lo que en la práctica se guarda en cada sondeo de 5 segundos. Al cerrar normalmente la aplicación, el progreso pendiente se guarda de inmediato.
+- Se utiliza el mismo archivo de datos (%LOCALAPPDATA%\MediaPlayerResumeAssistant\positions.json), por lo que no se descarta el historial existente.
+
+COMPILAR EN WINDOWS
+1. Descomprime esta carpeta.
+2. Asegúrate de tener instalado el SDK de .NET 8 para Windows.
+3. Conserva app.ico junto a MediaPlayerResumeAssistant.csproj.
+4. Ejecuta Compilar.bat.
+5. El ejecutable se publicará en:
+   bin\Release\net8.0-windows10.0.19041.0\win-x64\publish\MediaPlayerResumeAssistant.exe
+6. El historial permanece en:
+   %LOCALAPPDATA%\MediaPlayerResumeAssistant\positions.json
+
+NOTA SOBRE EL BORRADO
+El botón × borra permanentemente el archivo de vídeo del disco tras pedir confirmación; no lo envía a la Papelera de reciclaje. Si el archivo no se encuentra, muestra un aviso y mantiene la entrada en el historial.
+
+NOTA DE REVISION Y PRUEBAS
+Se revisó el flujo de seguimiento y se corrigió un error: antes se dejaba de buscar la sesión tras 35 segundos, aunque el mensaje indicaba que se seguiría comprobando. También se eliminó la selección de sesiones multimedia arbitrarias como último recurso para no enviar órdenes de posición a otra aplicación. Se verificó la estructura del proyecto, el XML del archivo de proyecto y la integridad del ZIP. En este entorno no está instalado el SDK de .NET, por lo que no se pudo realizar una compilación real ni medir el consumo de batería o reproducir el fallo en Windows. La validación funcional final debe hacerse en Windows. Conserva una copia de la versión anterior hasta comprobar la reproducción fluida, la reanudación, el historial y el borrado.
