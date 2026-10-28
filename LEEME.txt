@@ -28,5 +28,3 @@ COMPILAR EN WINDOWS
 NOTA SOBRE EL BORRADO
 El botón × borra permanentemente el archivo de vídeo del disco tras pedir confirmación; no lo envía a la Papelera de reciclaje. Si el archivo no se encuentra, muestra un aviso y mantiene la entrada en el historial.
 
-NOTA DE REVISION Y PRUEBAS
-Se revisó el flujo de seguimiento y se corrigió un error: antes se dejaba de buscar la sesión tras 35 segundos, aunque el mensaje indicaba que se seguiría comprobando. También se eliminó la selección de sesiones multimedia arbitrarias como último recurso para no enviar órdenes de posición a otra aplicación. Se verificó la estructura del proyecto, el XML del archivo de proyecto y la integridad del ZIP. En este entorno no está instalado el SDK de .NET, por lo que no se pudo realizar una compilación real ni medir el consumo de batería o reproducir el fallo en Windows. La validación funcional final debe hacerse en Windows. Conserva una copia de la versión anterior hasta comprobar la reproducción fluida, la reanudación, el historial y el borrado.
